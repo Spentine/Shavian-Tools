@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../globalStyle.css">
+    <script src="main.js" type="module"></script>
+  </head>
+  <body>
+    <div class="centered">
+      <div class="container">
+        
+        <h1 class="centeredText"> Shavian Word Filter </h1>
+        
+        <hr>
+        
+        <h2 class="centeredText"> How to Use </h2>
+        
+        <p>
+          &emsp; To use the program, first select the desired filters then press the filter button. If there are words that match the filter, another menu should appear prompting to sort and output. Click the button with your desired sort and then output your desired text format. It should appear under the "Output" header.
+        </p>
+        
+        <div class="centered">
+          <button id="information"> Show More Information </button>
+        </div>
+        
+        <div id="informationMenu" class="hidden">
+        
+          <h2 class="centeredText"> Filters </h2>
+          
+          <ul>
+            <li>The "Allowed Characters" input box will filter for words that only contain those letters.</li>
+            <li>The "Must Contain" input box will filter for words that contain that particular string of characters.</li>
+            <li>The "Starts With" input box will filter for words that start with that particular string of characters.</li>
+            <li>The "Ends With" input box will filter for words that end with that particular string of characters.</li>
+          </ul>
+          
+          <h2 class="centeredText">Sorts</h2>
+          
+          <ul>
+            <li>The "Shavian" sort will sort in Shavian alphabetical order.</li>
+            <li>The "Latin" sort will sort in Latin alphabetical order.</li>
+            <li>The "Shavian Length" sort will sort the words by its length with the Shavian alphabet.</li>
+            <li>The "Latin Length" sort will sort the words by its length with the Latin alphabet.</li>
+          </ul>
+          
+          <h2 class="centeredText">Outputs</h2>
+          
+          <ul>
+            <li>The JSON and CSV output is self-explanatory; they output their respective formats.</li>
+            <li>The "Text (Shavian & Latin)" output will display one line for each word; and on each line, the format "[Shavian] [Latin]" will be used.</li>
+            <li>The "Text (Shavian)" output will display all the Shavian words in order, separated by spaces.</li>
+          </ul>
+        
+        </div>
+        
+        <hr>
+        
+        <p class="centeredText"> Filter by... </p>
+        
+        <label for="allowedCharactersInput"> Allowed Characters </label>
+        <input id="allowedCharactersInput" type="text" value="𐑦𐑑𐑩𐑕𐑯𐑤𐑒𐑛𐑟𐑮𐑐𐑥𐑼𐑨𐑧𐑚𐑱𐑙𐑓𐑲𐑪𐑴𐑳𐑰𐑜𐑖𐑝𐑢𐑡𐑣𐑻𐑹𐑵𐑗𐑸𐑬𐑿𐑫𐑭𐑷𐑔𐑾𐑘𐑺𐑽𐑶𐑞𐑠-">
+        
+        <br>
+        
+        <label for="mustContainInput"> Must Contain </label>
+        <input id="mustContainInput" type="text" value="">
+        
+        <br>
+        
+        <label for="startsWithInput"> Starts With </label>
+        <input id="startsWithInput" type="text" value="">
+        
+        <br>
+        
+        <label for="endsWithInput"> Ends With </label>
+        <input id="endsWithInput" type="text" value="">
+        
+        <br>
+        
+        <div class="centered">
+          <button id="filterButton"> Filter </button>
+        </div>
+        
+        <hr>
+        
+        <div id="outputMenu" class="hidden">
+          <p class="centeredText"> Sort text by... </p>
+          
+          <div class="centered">
+            <button id="ShavianSort"> Shavian </button>
+            <button id="LatinSort"> Latin </button>
+            <button id="ShavianLengthSort"> Shavian Length </button>
+            <button id="LatinLengthSort"> Latin Length </button>
+          </div>
+          
+          <p class="centeredText"> Output text as... </p>
+          
+          <div class="centered">
+            <button id="jsonOutput"> JSON </button>
+            <button id="csvOutput"> CSV </button>
+            <!-- SL means Shavian and Latin -->
+            <button id="textSLOutput"> Text (Shavian & Latin) </button>
+            <!-- S just means Shavian -->
+            <button id="textSOutput"> Text (Shavian) </button>
+          </div>
+          
+          <hr>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="centered">
+      <div>
+        <h2 class="centeredText"> Output </h2>
+        <p id="outputElement">(output here)</p>
+      </div>
+    </div>
+  </body>
+</html>

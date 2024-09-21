@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "Inter Alia";
+  src: url("./fonts/InterAlia-VF.otf");
+}
+
+@font-face {
+  font-family: "Fondation Mono";
+  src: url("./fonts/FondationMono.otf");
+}
+
+body {
+  background-color: #222222;
+  color: #ffffff;
+  font-family: "Inter Alia";
+  margin: 16px;
+}
+
+p, label {
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+pre {
+  font-family: "Fondation Mono", monospace, sans-serif;
+  font-size: 20px;
+  background-color: #1b1b1b;
+  padding: 8px;
+}
+
+input {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 24px;
+  margin: 4px;
+}
+
+button {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 24px;
+  margin: 4px;
+}
+
+hr {
+  border-color: #505060;
+  background-color: #505060;
+  height: 2px;
+  border: 0;
+  margin: 24px 0px;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.container {
+  width: 600px;
+}
+
+.centeredText {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
