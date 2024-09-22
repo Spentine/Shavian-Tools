@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../globalStyle.css">
+    <link rel="stylesheet" href="./cardStyle.css">
+    <script src="main.js" type="module"></script>
+  </head>
+  <body>
+    <div class="centered">
+      <div class="container">
+        <h1 class="centeredText"> Shavian Typing Cards </h1>
+        
+        <p>
+          &emsp; This will contain various cards with words written in Shavian and Latin. The goal is to type out the Shavian word, helping to build up muscle memory for both spelling and typing.
+        </p>
+        
+        <div class="centered">
+          <a href="./about.html"><button> More Information </button></a>
+        </div>
+        
+        <hr>
+        
+        <p class="centeredText"> Select Card Pack </p>
+        
+        <div class="centered">
+          <select id="cardPackSelection">
+            <option value="json">JSON</option>
+            <option value="c4" selected=true>c4 (𐑦𐑑𐑩𐑕)</option>
+            <option value="c5">c5 (𐑯)</option>
+            <option value="c6">c6 (𐑤)</option>
+            <option value="c7">c7 (𐑒)</option>
+            <option value="c8">c8 (𐑛)</option>
+            <option value="c9">c9 (𐑟)</option>
+            <option value="c10">c10 (𐑮)</option>
+            <option value="c11">c11 (𐑐)</option>
+            <option value="c12">c12 (𐑥)</option>
+            <option value="c12">c13 (𐑼)</option>
+            <option value="c5">c14 (𐑨)</option>
+            <option value="c5">c15 (𐑧)</option>
+            <option value="c6">c16 (𐑚)</option>
+            <option value="c7">c17 (𐑱)</option>
+            <option value="c8">c18 (𐑙)</option>
+            <option value="c9">c19 (𐑓)</option>
+            <option value="c10">c20 (𐑲)</option>
+            <option value="c11">c21 (𐑪)</option>
+          </select>
+          <button id="JSONPackButton"> Import JSON </button>
+        </div>
+        <div class="centered">
+          <div>
+            <label for="cutoffInput"> Cutoff Factor </label>
+            <input id="cutoffInput" type="number" min="0" max="99" step="10">
+          </div>
+        </div>
+        
+        <div class="centered">
+          <button id="startButton"> Start Practice </button>
+        </div>
+        
+        <hr>
+        
+        <div id="cardMenu" class="hidden">
+          <div class="centered">
+            <p><span id="finishedCounter">0</span> cards finished</p>
+            &emsp;
+            <p><span id="mistakeCounter">0</span> mistakes</p>
+          </div>
+          <div class="centered">
+            <button id="skipCardButton"> Skip </button>
+          </div>
+          
+          <div class="card">
+            <p id="mainSecondary" class="centeredText cardSecondary"> uhh please wait </p>
+            <p id="mainPrimary" class="centeredText cardPrimary"> not loaded </p>
+            <div class="centered">
+              <input id="mainTextInput" type="text">
+            </div>
+          </div>
+          
+          <div id="cardContainer">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

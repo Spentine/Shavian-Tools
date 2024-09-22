@@ -15,7 +15,7 @@ body {
   margin: 16px;
 }
 
-p, label {
+p, label, li {
   font-size: 18px;
 }
 
@@ -27,6 +27,15 @@ h2 {
   font-size: 20px;
 }
 
+a {
+  color: #bbddcc;
+  transition: 0.1s;
+}
+
+a:hover {
+  color: #66ccaa;
+}
+
 pre {
   font-family: "Fondation Mono", monospace, sans-serif;
   font-size: 20px;
@@ -34,7 +43,7 @@ pre {
   padding: 8px;
 }
 
-input {
+input, select {
   background-color: #333333;
   color: #ffffff;
   font-family: inherit;
@@ -74,4 +83,8 @@ hr {
 
 .hidden {
   display: none;
+}
+
+.code {
+  font-family: "Fondation Mono", monospace, sans-serif;
 }

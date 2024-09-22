@@ -12,6 +12,9 @@ function main() {
   const mustContainInput = document.getElementById("mustContainInput");
   const startsWithInput = document.getElementById("startsWithInput");
   const endsWithInput = document.getElementById("endsWithInput");
+  const notStartWithInput = document.getElementById("notStartWithInput");
+  const notEndWithInput = document.getElementById("notEndWithInput");
+  const regexInput = document.getElementById("regexInput");
   
   const filterButton = document.getElementById("filterButton");
   
@@ -31,10 +34,20 @@ function main() {
   
   filterButton.addEventListener("click", () => {
     
+    var regex;
+    try {
+      regex = new RegExp(regexInput.value);
+    } catch {
+      regex = null;
+    }
+    
     filtered = readlex.filter((pair) => {
       if (!pair[0].includes(mustContainInput.value)) return false;
       if (!(pair[0].substring(0, startsWithInput.value.length) === startsWithInput.value)) return false;
       if (!(pair[0].substring(pair[0].length - endsWithInput.value.length) === endsWithInput.value)) return false;
+      if (notStartWithInput.value && (pair[0].substring(0, notStartWithInput.value.length) === notStartWithInput.value)) return false;
+      if (notEndWithInput.value && (pair[0].substring(pair[0].length - notEndWithInput.value.length) === notEndWithInput.value)) return false;
+      if (regex && !regex.test(pair[0])) return false;
       for (let i of pair[0]) {
         if (!(allowedCharactersInput.value.includes(i))) return false;
       }
@@ -89,8 +102,8 @@ function main() {
   });
   
   function displayResult(s) {
-    if (s.length > 2000) {
-      if (confirm("The text output is larger than 2,000 characters long. Would you rather download a file?")) {
+    if (s.length > 1e5) {
+      if (confirm("The text output is larger than 100,000 characters long. Would you rather download a file?")) {
         const l = document.createElement("a");
         l.download = "output.txt";
         l.href = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(s)));
