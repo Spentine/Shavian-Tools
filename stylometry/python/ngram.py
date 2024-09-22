@@ -1,4 +1,9 @@
-# gets data
+# This program will calculate the ngram frequencies in
+# the Shavian Read Lexicon.
+
+import util
+
+# get data
 data = open("stylometry/python/data.txt").read()
 words = data.split(" ")
 
@@ -7,8 +12,8 @@ try:
 except:
   n = 2
 
-# gets ngrams
-ngrams = {} # stores ngrams
+# get ngrams
+ngrams = {} # store ngrams
 for word in words: # for each word
   for index in range(len(word) + 1 - n): # number of pairs
     ngram = word[index : index+n] # ngram
@@ -17,16 +22,9 @@ for word in words: # for each word
     else: # otherwise
       ngrams[ngram] = 1 # make it exist and set it to 1
 
-# turns bigram dict into array and sorts it
-ngramArray = []
-for ngram in ngrams:
-  ngramArray.append([ngram, ngrams[ngram]]) # make the array
-ngramArray.sort(key=lambda a: a[1], reverse=True) # reverse sort it by frequency
+# turns bigram dict into array and sort it
+ngramArray = util.sortedArrayize(ngrams)
 print(ngramArray)
 
 # human readable top 50
-i = 0
-for bigram in ngramArray:
-  print(bigram[0] + "\t" + str(bigram[1]))
-  i += 1
-  if (i == 50): break
+util.humanPrint(ngramArray, 50)
