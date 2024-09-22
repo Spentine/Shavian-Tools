@@ -88,3 +88,7 @@ hr {
 .code {
   font-family: "Fondation Mono", monospace, sans-serif;
 }
+
+.checkbox {
+  transform: scale(1.5);
+}

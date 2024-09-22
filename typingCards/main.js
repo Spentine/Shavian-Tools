@@ -1,4 +1,4 @@
-import { cardRequester } from "./cards.js";
+import { cardRequester, packNames } from "./cards.js";
 
 var nextCardsAmount = 5;
 var nextCardsText = [];
@@ -11,6 +11,10 @@ var cardsFinished = 0;
 var mistakes = 0;
 var jsonPack = null;
 var visitedCardsSum = 0;
+const displaySettings = {
+  "mainVisible": true,
+  "secondaryVisible": true,
+}
 
 function main() {
   const cardPackSelection = document.getElementById("cardPackSelection");
@@ -24,7 +28,10 @@ function main() {
   const skipCardButton = document.getElementById("skipCardButton");
   const JSONPackButton = document.getElementById("JSONPackButton");
   const cutoffInput = document.getElementById("cutoffInput");
+  const primaryVisible = document.getElementById("primaryVisible");
+  const secondaryVisible = document.getElementById("secondaryVisible");
   
+  // make next cards
   for (let i=0; i<nextCardsAmount; i++) {
     const card = document.createElement("div"); // make card
     card.classList.add("card");
@@ -43,6 +50,14 @@ function main() {
     
     nextCardsElement.push({"card": card, "primary": primary, "secondary": secondary}); // push card to list and document
     cardContainer.appendChild(card);
+  }
+  
+  // make card pack names
+  for (let i in packNames) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.innerText = packNames[i];
+    cardPackSelection.appendChild(option);
   }
   
   function generateCard() {
@@ -159,10 +174,33 @@ function main() {
     }
   }
   
+  function updateCardStyle() {
+    const cardPrimaryClass = document.getElementsByClassName("cardPrimary");
+    const cardSecondaryClass = document.getElementsByClassName("cardSecondary");
+    
+    for (let element of cardPrimaryClass) {
+      if (primaryVisible.checked) {
+        element.classList.remove("primaryHidden");
+      } else {
+        element.classList.add("primaryHidden");
+      }
+    }
+    
+    for (let element of cardSecondaryClass) {
+      if (secondaryVisible.checked) {
+        element.classList.remove("secondaryHidden");
+      } else {
+        element.classList.add("secondaryHidden");
+      }
+    }
+  }
+  
   startButton.addEventListener("click", start);
   JSONPackButton.addEventListener("click", importJSONPack);
   mainTextInput.addEventListener("input", handleInput);
   skipCardButton.addEventListener("click", skipCard);
+  primaryVisible.addEventListener("change", updateCardStyle);
+  secondaryVisible.addEventListener("change", updateCardStyle);
   cutoffInput.addEventListener("change", () => {
     if (Number(cutoffInput.value) > 99) {
       cutoffInput.value = "99";
@@ -173,6 +211,7 @@ function main() {
       return;
     }
   });
+  
 }
 
 document.addEventListener("DOMContentLoaded", main);

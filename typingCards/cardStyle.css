@@ -11,10 +11,32 @@
   margin: 0px;
   font-size: 48px;
   color: #eefff8;
+  transition: 0.25s;
 }
 
 .cardSecondary {
   margin: 0px;
+  color: #aabba8;
+  transition: 0.25s;
+}
+
+.primaryHidden {
+  background-color: rgba(238, 255, 248, 0.05);
+  color: rgba(0, 0, 0, 0);
+}
+
+.primaryHidden:hover {
+  background-color: rgba(0, 0, 0, 0);
+  color: #eefff8;
+}
+
+.secondaryHidden {
+  background-color: rgba(170, 187, 168, 0.05);
+  color: rgba(0, 0, 0, 0);
+}
+
+.secondaryHidden:hover {
+  background-color: rgba(0, 0, 0, 0);
   color: #aabba8;
 }
 
