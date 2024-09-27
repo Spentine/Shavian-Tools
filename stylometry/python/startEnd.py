@@ -7,7 +7,7 @@
 import util
 
 # get data
-data = open("stylometry/python/data.txt").read()
+data = open("stylometry/data.txt").read()
 words = data.split(" ")
 
 starts = {}
