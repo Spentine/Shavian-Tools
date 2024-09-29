@@ -9,7 +9,7 @@ def sortedArrayize(d): # d = dict
   return arr
 
 # prints out array in human readable format
-def humanPrint(arr, limit):
+def humanPrint(arr, limit=-1):
   i = 0
   for item in arr:
     print(f"{item[0]}\t{item[1]}")

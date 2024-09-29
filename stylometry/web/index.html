@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../globalStyle.css">
+    <script src="web.js" type="module"></script>
+  </head>
+  <body>
+    <div class="centered">
+      <div class="container">
+        <h1 class="centeredText"> Shavian Stylometry </h1>
+        <p>
+          &emsp; This web application provides a tool that allows for an analyzation of Shavian words. Select the desired tool and inputs.
+        </p>
+        
+        <hr>
+        
+        <label for="toolSelection"> Select Tool </label>
+        <select id="toolSelection">
+          <option value="ngramMenu" selected="true"> ngram </option>
+          <option value="startEndMenu"> start-end </option>
+        </select>
+        
+        <hr>
+        
+        <div id="ngramMenu">
+          <p class="centeredText"> Ngram Menu </p>
+          <label for="ngramValue"> Enter value for n </label>
+          <input id="ngramValue" type="number" min="1" value="2">
+          <div class="centered">
+            <button id="ngramButton"> Calculate N-Grams </button>
+          </div>
+        </div>
+        
+        <div id="startEndMenu" class="hidden">
+          <p class="centeredText"> Start-End Menu </p>
+          <div class="centered">
+            <button id="startEndButton"> Calculate Start-End </button>
+          </div>
+        </div>
+        
+        <hr>
+        
+        <p class="centeredText"> Output Settings </p>
+        
+        <label for="freqPairLimit"> Freqency Pair Limit </label>
+        <input id="freqPairLimit" type="number" value="50" min="1">
+        
+        <hr>
+        
+        <p class="centeredText"> Output </p>
+        
+      </div>
+    </div>
+    
+    <div class="centered">
+      <p id="outputElement"></p>
+    </div>
+  </body>
+</head>
