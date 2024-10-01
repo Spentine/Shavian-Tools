@@ -51,6 +51,15 @@ input, select {
   margin: 4px;
 }
 
+textarea {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 24px;
+  width: 95%;
+  height: 200px;
+}
+
 button {
   background-color: #333333;
   color: #ffffff;
