@@ -1,4 +1,9 @@
-import cards from './cards.json' with {type: 'json'};
+// only compatible with v8 js
+// import cards from './cards.json' with {type: 'json'};
+
+import { importJSON } from "../util/importJSON.js";
+
+const cards = await importJSON("./cards.json");
 
 const downloaded = {};
 

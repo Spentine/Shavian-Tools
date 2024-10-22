@@ -17,6 +17,8 @@ const displaySettings = {
 }
 
 function main() {
+  console.log("main() running");
+  
   const cardPackSelection = document.getElementById("cardPackSelection");
   const startButton = document.getElementById("startButton");
   const mainPrimary = document.getElementById("mainPrimary");
@@ -214,4 +216,8 @@ function main() {
   
 }
 
-document.addEventListener("DOMContentLoaded", main);
+if (document.readyState === "loading") { 
+  document.addEventListener("DOMContentLoaded", main);
+} else {
+  main();
+}

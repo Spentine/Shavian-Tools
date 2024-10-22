@@ -1,5 +1,9 @@
-import conversionMaps from "./conversionMaps.json" with {type: "json"};
+// import conversionMaps from "./conversionMaps.json" with {type: "json"};
 // import { unicodeSplit } from "../util/stringHandler.js";
+
+import { importJSON } from "../util/importJSON.js";
+
+const conversionMaps = await importJSON("./conversionMaps.json");
 
 function convert(text) {
   for (let i of conversionMaps.wordMap) {
