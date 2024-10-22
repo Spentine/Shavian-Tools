@@ -7,7 +7,8 @@
     
     "ing": "./cards/suffix/ing.json",
     "tion": "./cards/suffix/tion.json",
-    "soft4": "./cards/misc/soft4.json"
+    "soft4": "./cards/misc/soft4.json",
+    "th": "./cards/misc/th.json"
   },
   "packFiles": {
     "c4": "basic",
@@ -59,7 +60,8 @@
     "ing": "ing",
     "tion": "tion",
     "soft4": "soft4",
-    "soft4h": "soft4"
+    "soft4h": "soft4",
+    "th": "th"
   },
   "packNames": {
     "c4": "c4 (𐑦𐑑𐑩𐑕)",
@@ -111,6 +113,7 @@
     "ing": "ing (𐑦𐑙)",
     "tion": "tion (𐑖𐑩𐑯)",
     "soft4": "c10 + 𐑩𐑨𐑧𐑪",
-    "soft4h": "c10 + 3×𐑩𐑨𐑧𐑪"
+    "soft4h": "c10 + 3×𐑩𐑨𐑧𐑪",
+    "th": "c20 + 𐑔𐑞"
   }
 }
