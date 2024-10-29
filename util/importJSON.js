@@ -10,7 +10,7 @@
 
 async function importJSON(loc) { // location
   const response = await fetch(loc);
-  if (!response.ok) throw new Error("Unable to fetch cards.");
+  if (!response.ok) throw new Error("Unable to fetch.");
   
   const data = await response.json(); // wait to parse the json
   return data; // return the now downloaded pack
