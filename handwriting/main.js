@@ -101,16 +101,24 @@ function main() {
       Math.min(1, e.offsetY / inputCanvas.height)
     ];
     
-    function modifyCanvas(canvas, ctx, pos, prev) {
-      const radius = Math.min(canvas.width, canvas.height) / 36;
-      ctx.strokeStyle = `#ffffff`;
-      ctx.lineWidth = radius;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(prev[0] * canvas.width, prev[1] * canvas.height);
-      ctx.lineTo(pos[0] * canvas.width, pos[1] * canvas.height);
-      ctx.stroke();
+    if (mouseActive) {
+      changed = true;
+      if (prevMousePos[0] == null) {
+        prevMousePos[0] = mousePos[0];
+        prevMousePos[1] = mousePos[1];
+      }
+      modifyCanvas(inputCanvas, ctx, mousePos, prevMousePos);
+      modifyCanvas(internalCanvas, internalCtx, mousePos, prevMousePos);
+      prevMousePos[0] = mousePos[0];
+      prevMousePos[1] = mousePos[1];
     }
+  }
+  
+  function touchMove(e) {
+    const mousePos = [
+      Math.max(0, e.changedTouches[0].clientX / inputCanvas.width),
+      Math.min(1, e.changedTouches[0].offsetY / inputCanvas.height)
+    ];
     
     if (mouseActive) {
       changed = true;
@@ -122,6 +130,19 @@ function main() {
       modifyCanvas(internalCanvas, internalCtx, mousePos, prevMousePos);
       prevMousePos[0] = mousePos[0];
       prevMousePos[1] = mousePos[1];
+    }
+  }
+  
+  function draw() {
+    function modifyCanvas(canvas, ctx, pos, prev) {
+      const radius = Math.min(canvas.width, canvas.height) / 36;
+      ctx.strokeStyle = `#ffffff`;
+      ctx.lineWidth = radius;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(prev[0] * canvas.width, prev[1] * canvas.height);
+      ctx.lineTo(pos[0] * canvas.width, pos[1] * canvas.height);
+      ctx.stroke();
     }
   }
   
@@ -196,6 +217,11 @@ function main() {
   inputCanvas.addEventListener("mousemove", mouseMove);
   document.addEventListener("mouseup", mouseUp);
   document.addEventListener("mousedown", mouseDown);
+  /*
+  inputCanvas.addEventListener("touchmove", touchMove);
+  document.addEventListener("touchend", mouseUp);
+  document.addEventListener("touchstart", mouseDown);
+  */
   document.addEventListener("keydown", (e) => {
     if (e.repeat) return;
     if (mode === "training") {

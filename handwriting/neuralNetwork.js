@@ -53,7 +53,7 @@ async function nnSave() {
 }
 
 async function nnLoad() {
-  shavianNN = await tf.loadLayersModel('http://localhost:8000/GitHub/Shavian-Tools/handwriting/models/v0.18/my-model.json');
+  shavianNN = await tf.loadLayersModel('./models/v0.18/my-model.json');
 }
 
 async function nnData(data) {
