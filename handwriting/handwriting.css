@@ -1,0 +1,29 @@
+canvas {
+  margin: 8px auto;
+}
+
+.menu {
+  display: none;
+}
+
+#promptText {
+  font-size: 48px;
+}
+
+.characterChoice {
+  margin: 0px;
+}
+
+.choice {
+  margin: 4px;
+  background-color: #333333;
+}
+
+.choiceBar {
+  background-color: #666666;
+}
+
+.warning {
+  color: #ffcccc;
+  text-decoration: dashed;
+}

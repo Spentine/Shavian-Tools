@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../globalStyle.css">
+    <link rel="stylesheet" href="databaseViewer.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+    <script src="databaseViewer.js" type="module"> </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="centeredText"> Shavian Handwriting Database </h1>
+      <p>
+        &emsp; View a database for Shavian Handwriting.
+      </p>
+      
+      <hr>
+      
+      <input type="file" id="importFile"> </input>
+      
+      <hr>
+      
+      <h2> Train </h2>
+      
+      <button id="trainNN"> Train CNN </button>
+      
+      <br>
+      
+    </div>
+      
+    <div id="databaseElement">
+      
+    </div>
+  </body>
+</html>

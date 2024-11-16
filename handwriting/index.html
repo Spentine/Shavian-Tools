@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../globalStyle.css">
+    <link rel="stylesheet" href="handwriting.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+    <script src="main.js" type="module"></script>
+    <title> Shavian Handwriting </title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="centeredText"> Shavian Handwriting </h1>
+      <p>
+        &emsp; This will be able to identify a Shavian character based off of a drawing by using TensorFlow.js for the convolutional neural network. It will assume that every character was done in only one stroke.
+      </p>
+      
+      <p class="warning">
+        &emsp; Please give the CNN model a moment or two to load. This model may require a semi-powerful computer, preferably with a GPU.
+      </p>
+      
+      <hr>
+      
+      <h2 class="centeredText"> Input </h2>
+      
+      <p class="centeredText"> Press R to reset the canvas. </p>
+      
+      <div id="trainingMenu" class="menu">
+        <input type="file" id="importFile"> </input>
+        <p class="centeredText" id="promptText">-</p>
+      </div>
+      
+      <div class="centered">
+        <canvas id="inputCanvas"></canvas>
+      </div>
+      
+      <div id="predictionMenu" class="menu">
+        <div id="predictionElement">
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

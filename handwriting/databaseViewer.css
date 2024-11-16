@@ -1,0 +1,26 @@
+img {
+  background-color: #444444;
+  image-rendering: pixelated;
+}
+
+canvas {
+  image-rendering: pixelated;
+}
+
+#databaseElement {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dataPoint {
+  padding: 16px;
+  background-color: #333333;
+  border-radius: 8px;
+}
+
+.dataValue {
+  margin: 0px;
+  font-size: 30px;
+  text-align: center;
+}

@@ -7,81 +7,78 @@
     <script src="main.js" type="module"></script>
   </head>
   <body>
-    <div class="centered">
-      <div class="container">
-        <h1 class="centeredText"> Shavian Typing Cards </h1>
-        
-        <p>
-          &emsp; This will contain various cards with words written in Shavian and Latin. The goal is to type out the Shavian word, helping to build up muscle memory for both spelling and typing.
-        </p>
-        
-        <div class="centered">
-          <a href="./about.html"><button> More Information </button></a>
-        </div>
-        
-        <hr>
-        
-        <p class="centeredText"> Display Settings </p>
-        
-        <div class="centered">
-          <div>
-            <label for="primaryVisible"> Primary Text Visible </label>
-            <input type="checkbox" id="primaryVisible" class="checkbox" checked="true">
-            
-            <br>
-            
-            <label for="secondaryVisible"> Secondary Text Visible </label>
-            <input type="checkbox" id="secondaryVisible" class="checkbox" checked="true">
-          </div>
-        </div>
-        
-        <hr>
-        
-        <p class="centeredText"> Select Card Pack </p>
-        
-        <div class="centered">
-          <select id="cardPackSelection">
-            <option value="json" selected=true>JSON</option>
-          </select>
-          <button id="JSONPackButton"> Import JSON </button>
-        </div>
-        <div class="centered">
-          <div>
-            <label for="cutoffInput"> Cutoff Factor </label>
-            <input id="cutoffInput" type="number" min="0" max="99" step="10">
-          </div>
-        </div>
-        
-        <div class="centered">
-          <button id="startButton"> Start Practice </button>
-        </div>
-        
-        <hr>
-        
-        <div id="cardMenu" class="hidden">
-          <div class="centered">
-            <p><span id="finishedCounter">0</span> cards finished</p>
-            &emsp;
-            <p><span id="mistakeCounter">0</span> mistakes</p>
-          </div>
-          <div class="centered">
-            <button id="skipCardButton"> Skip </button>
-          </div>
+    <div class="container">
+      <h1 class="centeredText"> Shavian Typing Cards </h1>
+      
+      <p>
+        &emsp; This will contain various cards with words written in Shavian and Latin. The goal is to type out the Shavian word, helping to build up muscle memory for both spelling and typing.
+      </p>
+      
+      <div class="centered">
+        <a href="./about.html"><button> More Information </button></a>
+      </div>
+      
+      <hr>
+      
+      <p class="centeredText"> Display Settings </p>
+      
+      <div class="centered">
+        <div>
+          <label for="primaryVisible"> Primary Text Visible </label>
+          <input type="checkbox" id="primaryVisible" class="checkbox" checked="true">
           
-          <div class="card">
-            <p id="mainSecondary" class="centeredText cardSecondary"> uhh please wait </p>
-            <p id="mainPrimary" class="centeredText cardPrimary"> not loaded </p>
-            <div class="centered">
-              <input id="mainTextInput" type="text">
-            </div>
-          </div>
+          <br>
           
-          <div id="cardContainer">
-            
+          <label for="secondaryVisible"> Secondary Text Visible </label>
+          <input type="checkbox" id="secondaryVisible" class="checkbox" checked="true">
+        </div>
+      </div>
+      
+      <hr>
+      
+      <p class="centeredText"> Select Card Pack </p>
+      
+      <div class="centered">
+        <select id="cardPackSelection">
+          <option value="json" selected=true>JSON</option>
+        </select>
+        <button id="JSONPackButton"> Import JSON </button>
+      </div>
+      <div class="centered">
+        <div>
+          <label for="cutoffInput"> Cutoff Factor </label>
+          <input id="cutoffInput" type="number" min="0" max="99" step="10">
+        </div>
+      </div>
+      
+      <div class="centered">
+        <button id="startButton"> Start Practice </button>
+      </div>
+      
+      <hr>
+      
+      <div id="cardMenu" class="hidden">
+        <div class="centered">
+          <p><span id="finishedCounter">0</span> cards finished</p>
+          &emsp;
+          <p><span id="mistakeCounter">0</span> mistakes</p>
+        </div>
+        <div class="centered">
+          <button id="skipCardButton"> Skip </button>
+        </div>
+        
+        <div class="card">
+          <p id="mainSecondary" class="centeredText cardSecondary"> uhh please wait </p>
+          <p id="mainPrimary" class="centeredText cardPrimary"> not loaded </p>
+          <div class="centered">
+            <input id="mainTextInput" type="text">
           </div>
+        </div>
+        
+        <div id="cardContainer">
+          
         </div>
       </div>
     </div>
-    
   </body>
 </html>
