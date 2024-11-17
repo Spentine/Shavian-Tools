@@ -13,6 +13,9 @@ function main() {
   const promptText = document.getElementById("promptText");
   const predictionElement = document.getElementById("predictionElement");
   
+  const resetCanvasButton = document.getElementById("resetCanvasButton");
+  const autoReset = document.getElementById("autoReset");
+  
   const mode = "prediction";
   
   if (mode === "training") {
@@ -97,8 +100,8 @@ function main() {
   function mouseMove(e) {
     // e.offsetX, e.offsetY
     const mousePos = [
-      Math.max(0, e.offsetX / inputCanvas.width),
-      Math.min(1, e.offsetY / inputCanvas.height)
+      e.offsetX / inputCanvas.width,
+      e.offsetY / inputCanvas.height
     ];
     
     if (mouseActive) {
@@ -115,9 +118,11 @@ function main() {
   }
   
   function touchMove(e) {
+    e.preventDefault(); // stop scrolling
+    const boundsRect = inputCanvas.getBoundingClientRect();
     const mousePos = [
-      Math.max(0, e.changedTouches[0].offsetX / inputCanvas.width),
-      Math.min(1, e.changedTouches[0].offsetY / inputCanvas.height)
+      (e.changedTouches[0].clientX - boundsRect.left) / inputCanvas.width,
+      (e.changedTouches[0].clientY - boundsRect.top) / inputCanvas.height
     ];
     
     if (mouseActive) {
@@ -168,6 +173,20 @@ function main() {
   function mouseDown() {
     mouseActive = true;
     prevMousePos[0] = null;
+    
+    if (autoReset.checked) {
+      clearCanvas();
+    }
+  }
+  
+  function touchDown(e) {
+    e.preventDefault();
+    mouseActive = true;
+    prevMousePos[0] = null;
+    
+    if (autoReset.value) {
+      clearCanvas();
+    }
   }
   
   function mouseUp() {
@@ -218,7 +237,11 @@ function main() {
   
   inputCanvas.addEventListener("touchmove", touchMove);
   document.addEventListener("touchend", mouseUp);
-  document.addEventListener("touchstart", mouseDown);
+  document.addEventListener("touchstart", touchDown);
+  
+  resetCanvasButton.addEventListener("click", () => {
+    clearCanvas();
+  });
   
   document.addEventListener("keydown", (e) => {
     if (e.repeat) return;
