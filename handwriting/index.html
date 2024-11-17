@@ -21,8 +21,17 @@
       
       <hr>
       
+      <label for="databaseCollection"> Bulk Database Collection </label>
+      <input type="checkbox" id="databaseCollection">
+      <br>
       <label for="autoReset"> Automatically Reset Canvas on Stroke </label>
       <input type="checkbox" id="autoReset">
+      
+      <hr>
+      
+      <p> Database Entries: </p>
+      <p id="databaseEntryCount"> </p>
+      <button id="exportDatabaseButton"> Export Database </button>
       
       <hr>
       
@@ -45,6 +54,14 @@
         <div id="predictionElement">
           
         </div>
+      </div>
+      
+      <div id="trainingMenuBottom" class="menu">
+        <button id="saveCharacterButton"> Save Character </button>
+        <button id="undoCharacterButton"> Undo Previous Character </button>
+        <br>
+        <button id="previousCharacterButton"> Previous Character </button>
+        <button id="nextCharacterButton"> Next Character </button>
       </div>
     </div>
   </body>

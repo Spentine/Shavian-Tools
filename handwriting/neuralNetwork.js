@@ -130,7 +130,7 @@ async function nnPredict(data) {
   
   const answer = tf.tidy(function() {
     const OUTPUT = shavianNN.predict(INPUT.reshape([1, sideLength, sideLength, 1]));
-    OUTPUT.print();
+    // OUTPUT.print();
     return OUTPUT.squeeze();
   });
   
@@ -158,4 +158,4 @@ function normalizeArray(array) {
   return array;
 }
 
-export { nnMain, nnTrain, nnLoad, nnPredict };
+export { shavianNN, nnMain, nnTrain, nnLoad, nnPredict };

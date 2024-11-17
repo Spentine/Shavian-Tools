@@ -1,9 +1,19 @@
 import { processImage } from "./util.js";
 import { nnMain, nnTrain } from "./neuralNetwork.js";
 
+function downloadDatabase(db) {
+  const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+  const a = document.createElement("a");
+  a.href = data;
+  a.download = "database.json";
+  a.click();
+}
+
 function main() {
   const importFile = document.getElementById("importFile");
   const databaseElement = document.getElementById("databaseElement");
+  const clearDatabaseButton = document.getElementById("clearDatabaseButton");
+  const exportDatabaseButton = document.getElementById("exportDatabaseButton");
   const trainNN = document.getElementById("trainNN");
   var database;
   var operationalDatabase;
@@ -14,13 +24,14 @@ function main() {
     
     reader.addEventListener("load", () => {
       try {
-        database = JSON.parse(reader.result);
-        console.log(database);
-        viewContents(database);
+        const fileData = JSON.parse(reader.result);
+        database.push(...fileData);
+        console.log(fileData);
+        viewContents(fileData);
+        makeOperationalDb(fileData);
       } catch {
         console.log("Failed to import database!");
       }
-      makeOperationalDb(database);
     });
     
     if (file) {
@@ -28,11 +39,16 @@ function main() {
     }
   }
   
-  function viewContents(db) {
-    // delete all contents
+  function clearDatabase() {
+    database = [];
+    operationalDatabase = [];
     while (databaseElement.firstChild) {
       databaseElement.removeChild(databaseElement.lastChild);
     }
+  }
+  
+  function viewContents(db) {
+    // delete all contents
     
     for (let dataPoint of db) {
       const container = document.createElement("div");
@@ -53,7 +69,7 @@ function main() {
   }
   
   function makeOperationalDb(db) {
-    operationalDatabase = [];
+    const readyLength = operationalDatabase.length + db.length;
     
     for (let dataPoint of db) {
       const image = new Image();
@@ -71,7 +87,7 @@ function main() {
     }
     
     function ready() {
-      if (operationalDatabase.length !== db.length) return;
+      if (operationalDatabase.length !== readyLength) return;
       console.log("Databases fully loaded!");
     }
   }
@@ -82,9 +98,17 @@ function main() {
     nnTrain(operationalDatabase);
   }
   
+  function exportDatabase() {
+    downloadDatabase(database);
+  }
+  
   nnMain();
   importFile.addEventListener("input", importedFile);
   trainNN.addEventListener("click", train);
+  clearDatabaseButton.addEventListener("click", clearDatabase);
+  exportDatabaseButton.addEventListener("click", exportDatabase);
+  
+  clearDatabase();
 }
 
 if (document.readyState === "loading") {

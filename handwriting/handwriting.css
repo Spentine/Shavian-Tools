@@ -19,11 +19,19 @@ canvas {
   background-color: #333333;
 }
 
+.choice:hover {
+  background-color: #335533;
+}
+
 .choiceBar {
-  background-color: #666666;
+  background-color: #aaaaaa55;
 }
 
 .warning {
   color: #ffcccc;
   text-decoration: dashed;
+}
+
+#databaseEntryCount {
+  font-size: 24px;
 }

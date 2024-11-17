@@ -1,4 +1,4 @@
-import { nnLoad, nnPredict } from "./neuralNetwork.js";
+import { shavianNN, nnLoad, nnPredict } from "./neuralNetwork.js";
 import { chars, toIndex } from "./characters.js";
 import { processImage } from "./util.js";
 import { database, saveImageToDatabase, popImageFromDatabase, downloadDatabase } from "./database.js";
@@ -10,19 +10,24 @@ function main() {
   
   const predictionMenu = document.getElementById("predictionMenu");
   const trainingMenu = document.getElementById("trainingMenu");
+  const trainingMenuBottom = document.getElementById("trainingMenuBottom");
   const promptText = document.getElementById("promptText");
   const predictionElement = document.getElementById("predictionElement");
   
   const resetCanvasButton = document.getElementById("resetCanvasButton");
   const autoReset = document.getElementById("autoReset");
+  const databaseCollection = document.getElementById("databaseCollection");
   
-  const mode = "prediction";
+  const saveCharacterButton = document.getElementById("saveCharacterButton");
+  const undoCharacterButton = document.getElementById("undoCharacterButton");
+  const nextCharacterButton = document.getElementById("nextCharacterButton");
+  const previousCharacterButton = document.getElementById("previousCharacterButton");
+  const exportDatabaseButton = document.getElementById("exportDatabaseButton");
   
-  if (mode === "training") {
-    trainingMenu.style.display = "block";
-  } else if (mode === "prediction") {
-    predictionMenu.style.display = "block";
-  }
+  const databaseEntryCount = document.getElementById("databaseEntryCount");
+  
+  var mode = "prediction";
+  updateModes();
   
   const inputCanvas = document.getElementById("inputCanvas");
   inputCanvas.width = 512;
@@ -48,8 +53,27 @@ function main() {
     predict();
   }
   
+  function updateDatabaseEntryCount() {
+    databaseEntryCount.innerText = database.length;
+  }
+  
   if (mode === "prediction") {
     fetchModel();
+  }
+  
+  function updateModes() {
+    if (mode === "training") {
+      trainingMenu.style.display = "block";
+      trainingMenuBottom.style.display = "block";
+      predictionMenu.style.display = "none";
+    } else if (mode === "prediction") {
+      predictionMenu.style.display = "block";
+      trainingMenu.style.display = "none";
+      trainingMenuBottom.style.display = "none";
+    }
+    while (predictionElement.firstChild) {
+      predictionElement.removeChild(predictionElement.lastChild);
+    }
   }
   
   function importedFile() {
@@ -66,6 +90,7 @@ function main() {
           }
         }
         console.log(database);
+        updateDatabaseEntryCount();
       } catch {
         console.log("Failed to import database!");
       }
@@ -88,10 +113,11 @@ function main() {
   var changed = false;
   
   function render() {
-    if (mode === "prediction") {
+    if (changed && mode === "prediction") {
       predict();
-      window.requestAnimationFrame(render);
     }
+    changed = false;
+    window.requestAnimationFrame(render);
   }
   window.requestAnimationFrame(render);
   
@@ -155,9 +181,11 @@ function main() {
     console.log(dataUrl);
     saveImageToDatabase(dataUrl, dataCollection.current);
     characterCollection(1);
+    updateDatabaseEntryCount();
   }
   
   async function predict() {
+    if (shavianNN === undefined) return;
     const modelInputs = processImage(internalCanvas);
     const results = await nnPredict(modelInputs);
     
@@ -184,7 +212,7 @@ function main() {
     mouseActive = true;
     prevMousePos[0] = null;
     
-    if (autoReset.value) {
+    if (autoReset.checked) {
       clearCanvas();
     }
   }
@@ -203,6 +231,7 @@ function main() {
   function popCharacter() {
     popImageFromDatabase();
     characterCollection(-1);
+    updateDatabaseEntryCount();
   }
   
   function displayPrediction(results) {
@@ -210,7 +239,10 @@ function main() {
       predictionElement.removeChild(predictionElement.lastChild);
     }
     
-    for (let i=0; i<10; i++) {
+    for (let i=0; i<20; i++) {
+      const probability = results[i][0];
+      const character = results[i][1];
+      
       const choiceContainer = document.createElement("div");
       choiceContainer.classList.add("choice");
       
@@ -220,12 +252,19 @@ function main() {
       choiceBar.style.height = "30px"
       
       const characterChoice = document.createElement("p");
-      characterChoice.innerText = results[i][1] + " " + results[i][0];
+      characterChoice.innerText = `${character} ${(probability * 100).toFixed(3)}%`;
       characterChoice.classList.add("characterChoice");
       
       choiceContainer.appendChild(choiceBar);
       choiceContainer.appendChild(characterChoice);
       predictionElement.appendChild(choiceContainer);
+      
+      choiceContainer.addEventListener("click", () => {
+        const dataUrl = internalCanvas.toDataURL();
+        console.log(dataUrl);
+        saveImageToDatabase(dataUrl, character);
+        updateDatabaseEntryCount();
+      });
     }
   }
   
@@ -237,17 +276,33 @@ function main() {
   
   inputCanvas.addEventListener("touchmove", touchMove);
   document.addEventListener("touchend", mouseUp);
-  document.addEventListener("touchstart", touchDown);
+  inputCanvas.addEventListener("touchstart", touchDown);
   
   resetCanvasButton.addEventListener("click", () => {
     clearCanvas();
+  });
+  
+  saveCharacterButton.addEventListener("click", () => {
+    saveImage();
+  });
+  undoCharacterButton.addEventListener("click", () => {
+    popCharacter();
+  });
+  previousCharacterButton.addEventListener("click", () => {
+    characterCollection(-1);
+  });
+  nextCharacterButton.addEventListener("click", () => {
+    characterCollection(1);
+  });
+  exportDatabaseButton.addEventListener("click", () => {
+    downloadDatabase();
   });
   
   document.addEventListener("keydown", (e) => {
     if (e.repeat) return;
     if (mode === "training") {
       switch (e.key) {
-        case " ":
+        case "f":
           saveImage();
           break;
         case "r":
@@ -268,9 +323,11 @@ function main() {
       } 
     } else if (mode === "prediction") {
       switch (e.key) {
-        case " ":
+        /*
+        case "f":
           predict();
           break;
+        */
         case "r":
           clearCanvas();
           break;
@@ -279,6 +336,17 @@ function main() {
   });
   
   importFile.addEventListener("input", importedFile);
+  databaseCollection.addEventListener("change", () => {
+    if (databaseCollection.checked) {
+      mode = "training";
+    } else {
+      mode = "prediction";
+    }
+    console.log(`mode: ${mode}`);
+    updateModes();
+  });
+  
+  updateDatabaseEntryCount();
 }
 
 if (document.readyState == "loading") {
