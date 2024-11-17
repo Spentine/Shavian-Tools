@@ -116,7 +116,7 @@ function main() {
   
   function touchMove(e) {
     const mousePos = [
-      Math.max(0, e.changedTouches[0].clientX / inputCanvas.width),
+      Math.max(0, e.changedTouches[0].offsetX / inputCanvas.width),
       Math.min(1, e.changedTouches[0].offsetY / inputCanvas.height)
     ];
     
@@ -133,17 +133,15 @@ function main() {
     }
   }
   
-  function draw() {
-    function modifyCanvas(canvas, ctx, pos, prev) {
-      const radius = Math.min(canvas.width, canvas.height) / 36;
-      ctx.strokeStyle = `#ffffff`;
-      ctx.lineWidth = radius;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(prev[0] * canvas.width, prev[1] * canvas.height);
-      ctx.lineTo(pos[0] * canvas.width, pos[1] * canvas.height);
-      ctx.stroke();
-    }
+  function modifyCanvas(canvas, ctx, pos, prev) {
+    const radius = Math.min(canvas.width, canvas.height) / 36;
+    ctx.strokeStyle = `#ffffff`;
+    ctx.lineWidth = radius;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(prev[0] * canvas.width, prev[1] * canvas.height);
+    ctx.lineTo(pos[0] * canvas.width, pos[1] * canvas.height);
+    ctx.stroke();
   }
   
   function saveImage() {
@@ -217,11 +215,11 @@ function main() {
   inputCanvas.addEventListener("mousemove", mouseMove);
   document.addEventListener("mouseup", mouseUp);
   document.addEventListener("mousedown", mouseDown);
-  /*
+  
   inputCanvas.addEventListener("touchmove", touchMove);
   document.addEventListener("touchend", mouseUp);
   document.addEventListener("touchstart", mouseDown);
-  */
+  
   document.addEventListener("keydown", (e) => {
     if (e.repeat) return;
     if (mode === "training") {
