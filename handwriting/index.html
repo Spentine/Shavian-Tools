@@ -26,6 +26,9 @@
       <br>
       <label for="autoReset"> Automatically Reset Canvas on Stroke </label>
       <input type="checkbox" id="autoReset">
+      <br>
+      <label for="predictionModeDatabase"> Add Correct Choice to Database on Click </label>
+      <input type="checkbox" id="predictionModeDatabase">
       
       <hr>
       
@@ -35,22 +38,46 @@
       
       <hr>
       
+      <div id="trainingMenu" class="menu">
+        <input type="file" id="importFile"> </input>
+        <p class="centeredText" id="promptText">-</p>
+      </div>
+      
+      <div id="predictionMenu" class="menu">
+        <div class="centered">
+          <textarea id="outputBox"></textarea>
+        </div>
+        
+        <div id="charButtons">
+          <button id="spaceButton"> Space </button>
+          <button id="periodButton" class="punctButton"> . </button>
+          <button id="exclamButton" class="punctButton"> ! </button>
+          <button id="questionButton" class="punctButton"> ? </button>
+          <button id="apostropheButton" class="punctButton"> ' </button>
+          <button id="leftQuoteButton" class="punctButton"> « </button>
+          <button id="rightQuoteButton" class="punctButton"> » </button>
+          <button id="namerButton" class="punctButton"> · </button>
+          <button id="acroButton" class="punctButton"> ⸰ </button>
+        </div>
+        
+        <div class="centered">
+          <button id="bkspButton"> Backspace </button>
+        </div>
+        </div>
+      
+      <hr>
+      
       <h2 class="centeredText"> Canvas Input Field </h2>
       
       <div class="centered">
         <button id="resetCanvasButton"> Reset Canvas </button>
       </div>
       
-      <div id="trainingMenu" class="menu">
-        <input type="file" id="importFile"> </input>
-        <p class="centeredText" id="promptText">-</p>
-      </div>
-      
       <div class="centered">
         <canvas id="inputCanvas"></canvas>
       </div>
       
-      <div id="predictionMenu" class="menu">
+      <div id="predictionMenuBottom" class="menu">
         <div id="predictionElement">
           
         </div>

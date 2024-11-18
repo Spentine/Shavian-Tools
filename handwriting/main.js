@@ -9,14 +9,17 @@ function main() {
   const importFile = document.getElementById("importFile");
   
   const predictionMenu = document.getElementById("predictionMenu");
+  const predictionMenuBottom = document.getElementById("predictionMenuBottom");
   const trainingMenu = document.getElementById("trainingMenu");
   const trainingMenuBottom = document.getElementById("trainingMenuBottom");
   const promptText = document.getElementById("promptText");
   const predictionElement = document.getElementById("predictionElement");
+  const outputBox = document.getElementById("outputBox");
   
   const resetCanvasButton = document.getElementById("resetCanvasButton");
   const autoReset = document.getElementById("autoReset");
   const databaseCollection = document.getElementById("databaseCollection");
+  const predictionModeDatabase = document.getElementById("predictionModeDatabase");
   
   const saveCharacterButton = document.getElementById("saveCharacterButton");
   const undoCharacterButton = document.getElementById("undoCharacterButton");
@@ -66,8 +69,10 @@ function main() {
       trainingMenu.style.display = "block";
       trainingMenuBottom.style.display = "block";
       predictionMenu.style.display = "none";
+      predictionMenuBottom.style.display = "none";
     } else if (mode === "prediction") {
       predictionMenu.style.display = "block";
+      predictionMenuBottom.style.display = "block";
       trainingMenu.style.display = "none";
       trainingMenuBottom.style.display = "none";
     }
@@ -201,7 +206,9 @@ function main() {
   function mouseDown() {
     mouseActive = true;
     prevMousePos[0] = null;
-    
+  }
+  
+  function mouseDownCanvas() {
     if (autoReset.checked) {
       clearCanvas();
     }
@@ -211,6 +218,14 @@ function main() {
     e.preventDefault();
     mouseActive = true;
     prevMousePos[0] = null;
+    
+    if (autoReset.checked) {
+      clearCanvas();
+    }
+  }
+  
+  function touchDownCanvas(e) {
+    e.preventDefault();
     
     if (autoReset.checked) {
       clearCanvas();
@@ -260,10 +275,13 @@ function main() {
       predictionElement.appendChild(choiceContainer);
       
       choiceContainer.addEventListener("click", () => {
-        const dataUrl = internalCanvas.toDataURL();
-        console.log(dataUrl);
-        saveImageToDatabase(dataUrl, character);
-        updateDatabaseEntryCount();
+        if (predictionModeDatabase.checked) {
+          const dataUrl = internalCanvas.toDataURL();
+          console.log(dataUrl);
+          saveImageToDatabase(dataUrl, character);
+          updateDatabaseEntryCount();
+        }
+        outputBox.value += character;
       });
     }
   }
@@ -271,10 +289,12 @@ function main() {
   characterCollection(0);
   
   inputCanvas.addEventListener("mousemove", mouseMove);
+  inputCanvas.addEventListener("mousedown", mouseDownCanvas);
   document.addEventListener("mouseup", mouseUp);
   document.addEventListener("mousedown", mouseDown);
   
   inputCanvas.addEventListener("touchmove", touchMove);
+  inputCanvas.addEventListener("touchstart", touchDownCanvas);
   document.addEventListener("touchend", mouseUp);
   inputCanvas.addEventListener("touchstart", touchDown);
   
@@ -345,6 +365,31 @@ function main() {
     console.log(`mode: ${mode}`);
     updateModes();
   });
+  
+  const charButtons = {
+    "spaceButton": " ",
+    "periodButton": ".",
+    "exclamButton": "!",
+    "questionButton": "?",
+    "apostropheButton": "'",
+    "leftQuoteButton": "«",
+    "rightQuoteButton": "»",
+    "namerButton": "·",
+    "acroButton": "⸰",
+  };
+  
+  for (let button in charButtons) {
+    const character = charButtons[button];
+    document.getElementById(button)
+      .addEventListener("click", () => {
+        outputBox.value += character;
+      });
+  }
+  
+  document.getElementById("bkspButton")
+    .addEventListener("click", () => {
+      outputBox.value = outputBox.value.substring(0, outputBox.value.length - 1);
+    });
   
   updateDatabaseEntryCount();
 }

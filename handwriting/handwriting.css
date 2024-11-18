@@ -35,3 +35,24 @@ canvas {
 #databaseEntryCount {
   font-size: 24px;
 }
+
+#charButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.punctButton {
+  flex: 1;
+  height: 50px;
+  padding: 0px;
+}
+
+#spaceButton {
+  flex: 2;
+  padding: 0px;
+}
+
+#bkspButton {
+  width: 80%;
+  height: 50px;
+}
