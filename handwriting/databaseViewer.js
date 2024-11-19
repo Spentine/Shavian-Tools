@@ -17,26 +17,42 @@ function main() {
   const trainNN = document.getElementById("trainNN");
   var database;
   var operationalDatabase;
+  var ready = false;
   
-  function importedFile() {
-    const file = importFile.files[0];
-    const reader = new FileReader();
-    
-    reader.addEventListener("load", () => {
-      try {
-        const fileData = JSON.parse(reader.result);
-        database.push(...fileData);
-        console.log(fileData);
-        viewContents(fileData);
-        makeOperationalDb(fileData);
-      } catch {
-        console.log("Failed to import database!");
+  async function importedFiles() {
+    const files = importFile.files;
+    ready = false;
+    for (let file of files) {
+      console.log(file);
+      await importedFile(file);
+    }
+    ready = true;
+    console.log("All databases loaded!");
+  }
+  
+  async function importedFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      
+      reader.addEventListener("load", async function() {
+        try {
+          const fileData = JSON.parse(reader.result);
+          database.push(...fileData);
+          console.log(fileData);
+          viewContents(fileData);
+          await makeOperationalDb(fileData);
+          resolve();
+          console.log("Database fully loaded!");
+        } catch {
+          console.log("Failed to import database!");
+          reject();
+        }
+      });
+      
+      if (file) {
+        reader.readAsText(file);
       }
     });
-    
-    if (file) {
-      reader.readAsText(file);
-    }
   }
   
   function clearDatabase() {
@@ -68,32 +84,34 @@ function main() {
     }
   }
   
-  function makeOperationalDb(db) {
-    const readyLength = operationalDatabase.length + db.length;
-    
-    for (let dataPoint of db) {
-      const image = new Image();
-      image.src = dataPoint.image;
+  async function makeOperationalDb(db) {
+    return new Promise((resolve, reject) => {
+      const readyLength = operationalDatabase.length + db.length;
       
-      if (image.complete) {
-        operationalDatabase.push(processImage(image, dataPoint));
-        ready();
-      } else {
-        image.addEventListener("load", () => {
+      for (let dataPoint of db) {
+        const image = new Image();
+        image.src = dataPoint.image;
+        
+        if (image.complete) {
           operationalDatabase.push(processImage(image, dataPoint));
           ready();
-        });
+        } else {
+          image.addEventListener("load", () => {
+            operationalDatabase.push(processImage(image, dataPoint));
+            ready();
+          });
+        }
       }
-    }
-    
-    function ready() {
-      if (operationalDatabase.length !== readyLength) return;
-      console.log("Databases fully loaded!");
-    }
+      
+      function ready() {
+        if (operationalDatabase.length !== readyLength) return;
+        resolve();
+      }
+    });
   }
   
   function train() {
-    if (operationalDatabase.length !== database.length) return;
+    if (!ready) return;
     console.log(operationalDatabase);
     nnTrain(operationalDatabase);
   }
@@ -103,7 +121,7 @@ function main() {
   }
   
   nnMain();
-  importFile.addEventListener("input", importedFile);
+  importFile.addEventListener("input", importedFiles);
   trainNN.addEventListener("click", train);
   clearDatabaseButton.addEventListener("click", clearDatabase);
   exportDatabaseButton.addEventListener("click", exportDatabase);

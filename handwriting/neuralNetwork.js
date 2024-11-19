@@ -52,8 +52,8 @@ async function nnSave() {
   await shavianNN.save('downloads://my-model');
 }
 
-async function nnLoad() {
-  shavianNN = await tf.loadLayersModel('./models/v0.18/my-model.json');
+async function nnLoad(link="./models/v0.19/my-model.json") {
+  shavianNN = await tf.loadLayersModel(link);
 }
 
 async function nnData(data) {

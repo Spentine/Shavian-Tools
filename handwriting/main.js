@@ -16,6 +16,9 @@ function main() {
   const predictionElement = document.getElementById("predictionElement");
   const outputBox = document.getElementById("outputBox");
   
+  const selectModel = document.getElementById("selectModel");
+  const changeModel = document.getElementById("changeModel");
+  
   const resetCanvasButton = document.getElementById("resetCanvasButton");
   const autoReset = document.getElementById("autoReset");
   const databaseCollection = document.getElementById("databaseCollection");
@@ -28,6 +31,8 @@ function main() {
   const exportDatabaseButton = document.getElementById("exportDatabaseButton");
   
   const databaseEntryCount = document.getElementById("databaseEntryCount");
+  
+  // const urlParams = new URLSearchParams(document.location.search);
   
   var mode = "prediction";
   updateModes();
@@ -52,7 +57,7 @@ function main() {
   clearCanvas();
   
   async function fetchModel() {
-    await nnLoad();
+    await nnLoad(selectModel.value);
     predict();
   }
   
@@ -390,6 +395,8 @@ function main() {
     .addEventListener("click", () => {
       outputBox.value = outputBox.value.substring(0, outputBox.value.length - 1);
     });
+  
+  changeModel.addEventListener("click", fetchModel);
   
   updateDatabaseEntryCount();
 }
