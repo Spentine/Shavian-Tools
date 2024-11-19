@@ -34,6 +34,9 @@ function main() {
   
   // const urlParams = new URLSearchParams(document.location.search);
   
+  const optionCount = document.getElementById("optionCount");
+  var optionDisplay = 10;
+  
   var mode = "prediction";
   updateModes();
   
@@ -259,7 +262,7 @@ function main() {
       predictionElement.removeChild(predictionElement.lastChild);
     }
     
-    for (let i=0; i<20; i++) {
+    for (let i=0; i<optionDisplay; i++) {
       const probability = results[i][0];
       const character = results[i][1];
       
@@ -391,10 +394,13 @@ function main() {
       });
   }
   
-  document.getElementById("bkspButton")
-    .addEventListener("click", () => {
-      outputBox.value = outputBox.value.substring(0, outputBox.value.length - 1);
-    });
+  document.getElementById("bkspButton").addEventListener("click", () => {
+    outputBox.value = outputBox.value.substring(0, outputBox.value.length - 1);
+  });
+  
+  optionCount.addEventListener("change", () => {
+    optionDisplay = optionCount.value;
+  });
   
   changeModel.addEventListener("click", fetchModel);
   
