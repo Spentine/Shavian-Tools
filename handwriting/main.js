@@ -6,6 +6,11 @@ import { database, saveImageToDatabase, popImageFromDatabase, downloadDatabase }
 function main() {
   // nnMain();
   
+  var changed = {
+    "value": false,
+    "reason": null,
+  };
+  
   const importFile = document.getElementById("importFile");
   
   const predictionMenu = document.getElementById("predictionMenu");
@@ -23,6 +28,8 @@ function main() {
   const autoReset = document.getElementById("autoReset");
   const databaseCollection = document.getElementById("databaseCollection");
   const predictionModeDatabase = document.getElementById("predictionModeDatabase");
+  const autoFirst = document.getElementById("autoFirst");
+  var autoChar = null;
   
   const saveCharacterButton = document.getElementById("saveCharacterButton");
   const undoCharacterButton = document.getElementById("undoCharacterButton");
@@ -61,7 +68,9 @@ function main() {
   
   async function fetchModel() {
     await nnLoad(selectModel.value);
-    predict();
+    predict(false);
+    autoChar = null;
+    changed.reason = "fetchModel";
   }
   
   function updateDatabaseEntryCount() {
@@ -120,16 +129,16 @@ function main() {
     
     internalCtx.clearRect(0, 0, internalCanvas.width, internalCanvas.height);
     
-    changed = true;
+    changed.value = true;
+    changed.reason = "clearCanvas";
   }
   
-  var changed = false;
-  
   function render() {
-    if (changed && mode === "prediction") {
-      predict();
+    if (changed.value && mode === "prediction") {
+      predict(changed.reason === "input");
     }
-    changed = false;
+    changed.value = false;
+    changed.reason = null;
     window.requestAnimationFrame(render);
   }
   window.requestAnimationFrame(render);
@@ -144,7 +153,8 @@ function main() {
     ];
     
     if (mouseActive) {
-      changed = true;
+      changed.value = true;
+      changed.reason = "input";
       if (prevMousePos[0] == null) {
         prevMousePos[0] = mousePos[0];
         prevMousePos[1] = mousePos[1];
@@ -165,7 +175,8 @@ function main() {
     ];
     
     if (mouseActive) {
-      changed = true;
+      changed.value = true;
+      changed.reason = "input";
       if (prevMousePos[0] == null) {
         prevMousePos[0] = mousePos[0];
         prevMousePos[1] = mousePos[1];
@@ -197,7 +208,7 @@ function main() {
     updateDatabaseEntryCount();
   }
   
-  async function predict() {
+  async function predict(autoCharModify) {
     if (shavianNN === undefined) return;
     const modelInputs = processImage(internalCanvas);
     const results = await nnPredict(modelInputs);
@@ -209,6 +220,7 @@ function main() {
     results.sort((a, b) => (b[0] - a[0]));
     // console.log(results);
     displayPrediction(results);
+    if (autoCharModify) autoChar = results[0][1];
   }
   
   function mouseDown() {
@@ -216,8 +228,19 @@ function main() {
     prevMousePos[0] = null;
   }
   
+  
+  function autoCharConsume() {
+    console.log(autoChar);
+    if (autoChar === null) return;
+    if (autoFirst.checked) {
+      outputBox.value += autoChar;
+    }
+    autoChar = null;
+  }
+  
   function mouseDownCanvas() {
     if (autoReset.checked) {
+      autoCharConsume();
       clearCanvas();
     }
   }
@@ -226,16 +249,13 @@ function main() {
     e.preventDefault();
     mouseActive = true;
     prevMousePos[0] = null;
-    
-    if (autoReset.checked) {
-      clearCanvas();
-    }
   }
   
   function touchDownCanvas(e) {
     e.preventDefault();
     
     if (autoReset.checked) {
+      autoCharConsume();
       clearCanvas();
     }
   }
@@ -290,6 +310,7 @@ function main() {
           updateDatabaseEntryCount();
         }
         outputBox.value += character;
+        autoChar = null;
       });
     }
   }
@@ -307,6 +328,7 @@ function main() {
   inputCanvas.addEventListener("touchstart", touchDown);
   
   resetCanvasButton.addEventListener("click", () => {
+    autoChar = null;
     clearCanvas();
   });
   
@@ -390,12 +412,19 @@ function main() {
     const character = charButtons[button];
     document.getElementById(button)
       .addEventListener("click", () => {
+        autoCharConsume();
         outputBox.value += character;
       });
   }
   
   document.getElementById("bkspButton").addEventListener("click", () => {
-    outputBox.value = outputBox.value.substring(0, outputBox.value.length - 1);
+    clearCanvas();
+    autoChar = null;
+    if ((outputBox.value.substring(outputBox.value.length - 2)) in toIndex) {
+      outputBox.value = outputBox.value.substring(0, outputBox.value.length - 2);
+    } else {
+      outputBox.value = outputBox.value.substring(0, outputBox.value.length - 1);
+    }
   });
   
   optionCount.addEventListener("change", () => {

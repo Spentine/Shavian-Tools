@@ -107,7 +107,7 @@ async function nnTrain(data) {
   let results = await shavianNN.fit(INPUTS_TENSOR, OUTPUTS_TENSOR, {
     shuffle: true,
     validationSplit: 0.1,
-    batchSize: 55 * 24,
+    batchSize: 55 * 48,
     epochs: 48,
     callbacks: {onEpochEnd: logProgress}
   });
