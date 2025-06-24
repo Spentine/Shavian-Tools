@@ -38,8 +38,8 @@ To use the program, simply start typing into the text box. It will convert as yo
 | i | 𐑦 |
 | e | 𐑧 |
 | a | 𐑨 |
-| o | 𐑩 |
-| ah | 𐑪 |
+| uh | 𐑩 |
+| o | 𐑪 |
 | ou | 𐑫 |
 | ow | 𐑬 |
 | aw | 𐑷 |
