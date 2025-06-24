@@ -75,3 +75,7 @@ Once the chart from Latin to Shavian has been memorized, to handle two-letter di
   - [*payroll*] "p**Axr**Ol" --> "𐑐𐑱𐑮𐑴𐑤" ("pArOl" --> "𐑐𐑺𐑴𐑤")
   - [*being*] "b**Exi**ng" --> "𐑚𐑰𐑦𐑙" ("bEing" --> "𐑚𐑾𐑙")
 - There are no instances where there is an ambiguity between two compounds (ex. [ab]c vs a[bc])
+
+## Other
+
+Chart courtesy of [seq.wtf](https://seq.wtf/). Thanks to the people who suggested modifications to the chart list.
