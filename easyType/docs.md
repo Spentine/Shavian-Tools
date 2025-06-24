@@ -14,3 +14,4 @@ so splitting ("ab" -> "c"), ("a" -> "d"), ("b" -> "e") must contain:
 - "a" --> "d" (given)
 - "dx" --> "ax"
 - "axb" --> "de"
+- "db" --> "c"
