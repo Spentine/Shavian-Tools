@@ -58,6 +58,8 @@ const letterMap = {
   "::": "⸰",
   "<<": "«",
   ">>": "»",
+  "<": "‹",
+  ">": "›",
 }
 const delimiter = "x";
 

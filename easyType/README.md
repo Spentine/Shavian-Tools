@@ -63,6 +63,8 @@ To use the program, simply start typing into the text box. It will convert as yo
 | :: | ⸰ |
 | << | « |
 | >> | » |
+| < | ‹ |
+| > | › |
 
 Once the chart from Latin to Shavian has been memorized, to handle two-letter distinguishers, it will work as follows:
 
