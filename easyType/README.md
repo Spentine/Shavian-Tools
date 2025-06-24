@@ -38,11 +38,11 @@ To use the program, simply start typing into the text box. It will convert as yo
 | i | 𐑦 |
 | e | 𐑧 |
 | a | 𐑨 |
-| uh | 𐑩 |
+| o | 𐑩 |
 | ah | 𐑪 |
-| o | 𐑫 |
+| ou | 𐑫 |
 | ow | 𐑬 |
-| ol | 𐑷 |
+| aw | 𐑷 |
 | E | 𐑰 |
 | A | 𐑱 |
 | I | 𐑲 |
@@ -50,7 +50,7 @@ To use the program, simply start typing into the text box. It will convert as yo
 | O | 𐑴 |
 | u | 𐑵 |
 | oi | 𐑶 |
-| aw | 𐑭 |
+| ah | 𐑭 |
 | R | 𐑸 |
 | Ar | 𐑺 |
 | ar | 𐑼 |
