@@ -123,3 +123,42 @@ input: c
 input: Q
   text: a2 # discard previous X
 ```
+
+### Case 3
+
+```yaml
+(cd -> 1), (abcde -> 2)
+
+input: a
+  replace: no
+  text: a
+input: b
+  replace: no
+  text: ab
+input: X
+  text: abX
+input: c
+  replace: no
+  possible bc.+ combinations:
+    no
+  possible abc.+ combinations:
+    abcde -> 2
+  discard: no
+  text: abXc
+input: d
+  replace: cd -> 1
+  possible b1.+ combinations:
+    no
+  possible ab1.+ combinations:
+    ab1e -> 2
+  discard: no
+  text: abX1
+input: e
+  replace: no
+  possible b1e.+ combinations:
+    no
+  possible ab1e.+ combinations:
+    no
+  discard: yes
+  text: ab1e
+```
