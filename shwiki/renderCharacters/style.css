@@ -1,0 +1,24 @@
+.container {
+  max-width: 1200px;
+}
+
+#output {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.character-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  height: 128px;
+}
+
+.character-label {
+  text-align: center;
+  margin: 8px 0 0 0;
+}
